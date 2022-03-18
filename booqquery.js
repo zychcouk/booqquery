@@ -7,11 +7,14 @@ program
   .description("Tiny Bookkeeping CLI with Starling integration")
   .version("0.0.1")
 
-program.command("info").action(() => {
-  let info = api.GetStarlingInfo().then((res) => {
-    console.log(`Your Account Uid is ${res.accountUid}`)
+program
+  .command("uid")
+  .description("Show Uid connected to Token")
+  .action(() => {
+    api.GetStarlingInfo("uid").then((res) => {
+      console.log(res)
+    })
   })
-})
 
 // show balance
 program

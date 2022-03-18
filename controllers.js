@@ -7,16 +7,20 @@ const mongoose = require("mongoose")
 const db = require("./transaction")
 mongoose.connect("mongodb://localhost/booqquery")
 
-async function GetStarlingInfo() {
+async function GetStarlingInfo(type) {
   return axios
     .get(`https://api.starlingbank.com/api/v2/accounts/`, config)
     .then(async function (response) {
-      //response.data.accounts[0] = { accountUid, createdAt }
       let info = {
         accountUid: response.data.accounts[0].accountUid,
         AccountCreatedAt: response.data.accounts[0].createdAt,
       }
-      return info
+
+      if (type == "uid") return `Your account Uid ${info.accountUid}`
+      else return info.AccountCreatedAt
+    })
+    .catch(function (error) {
+      return error.response.data.error_description
     })
 }
 async function ReturnStarlingBalance() {
