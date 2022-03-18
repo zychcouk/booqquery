@@ -33,8 +33,15 @@ _All you need to do is to clone the repo and run_
    ```
 3. Update `starling-template.js` with your developer token and rename it to
    `starling.js`
+
    ```js
    const token = "Your Key"
+   ```
+
+   4. Optionally add an alias to your `bash.rc` or equivalent
+
+   ```js
+    alias booqquery = 'node /path/to/booqquery.js'
    ```
 
 <!-- USAGE EXAMPLES -->
@@ -45,7 +52,17 @@ Use this space to show useful examples of how a project can be used. Additional
 screenshots, code examples and demos work well in this space. You may also link
 to more resources.
 
-<!-- ROADMAP -->
+- Get current balance
+
+  ```sh
+  booqquery balance
+  ```
+
+  Sample output:
+
+```sh
+ booq
+    <!-- ROADMAP -->
 
 ## Roadmap
 
@@ -67,3 +84,4 @@ Your Name - [@zychcouk](https://twitter.com/zychcouk) - ziggy@zych.co.uk
 
 Project Link:
 [https://github.com/zychcouk/Booqquery.git](https://github.com/zychcouk/Booqquery.git)
+```
