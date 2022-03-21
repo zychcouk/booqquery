@@ -1,18 +1,23 @@
 const { Command } = require("commander")
 const program = new Command()
-const api = require("./controllers")
-
+const api = require("./scripts/helpers/bq-functions")
+const mongoose = require("mongoose")
+const db = require("./scripts/models/transaction")
+mongoose.connect("mongodb://localhost/booqquery")
+// bq description and settings
 program
   .name("Booqquery")
   .description("Tiny Bookkeeping CLI with Starling integration")
   .version("0.0.1")
 
+// Show uid command
 program
   .command("uid")
-  .description("Show Uid connected to Token")
+  .description("Show Uid connected to token")
   .action(() => {
-    api.GetStarlingInfo("uid").then((res) => {
-      console.log(res)
+    api.GetStarlingUid().then((response) => {
+      console.log(`Account Uid is ${response}`)
+      close()
     })
   })
 
@@ -24,9 +29,9 @@ program
   //.option("--first", "display just the first substring")
   //.option("-s, --separator <char>", "separator character", ",")
   .action(() => {
-    api.ReturnStarlingBalance().then((res) => {
-      let amount = res / 100
+    api.GetStarlingBalance().then((amount) => {
       console.log(`The current balance is £${amount}`)
+      close()
     })
   })
 
@@ -43,5 +48,7 @@ program
       console.log(res)
     })
   })
-
+function close() {
+  mongoose.connection.close()
+}
 program.parse()

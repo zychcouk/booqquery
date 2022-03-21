@@ -1,5 +1,9 @@
 ## About The Project
 
+---
+
+## STILL WIP
+
 **Booqquery** is a CLI accounting tool with the ability to connect to
 **Starling** bank sync transactions to MongoDB database and add tags and
 calculate totals and export the data to excel files. In the future there will be
@@ -38,7 +42,14 @@ _All you need to do is to clone the repo and run_
    const token = "Your Key"
    ```
 
-   4. Optionally add an alias to your `bash.rc` or equivalent
+4. Run `node booqquery.js uid` after updating your token and update Uid var with
+   returned Uid.
+
+   ```js
+   exports.accountUid = "your uid"
+   ```
+
+   1. Optionally add an alias to your `bash.rc` or equivalent
 
    ```js
     alias booqquery = 'node /path/to/booqquery.js'
@@ -58,11 +69,7 @@ to more resources.
   booqquery balance
   ```
 
-  Sample output:
-
-```sh
- booq
-    <!-- ROADMAP -->
+<!-- ROADMAP -->
 
 ## Roadmap
 
@@ -84,4 +91,7 @@ Your Name - [@zychcouk](https://twitter.com/zychcouk) - ziggy@zych.co.uk
 
 Project Link:
 [https://github.com/zychcouk/Booqquery.git](https://github.com/zychcouk/Booqquery.git)
+
+```
+
 ```

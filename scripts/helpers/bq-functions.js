@@ -1,36 +1,43 @@
 const axios = require("axios").default
-const StarlingApi = require("./starling")
+const StarlingApi = require("../../starling")
 const config = StarlingApi.config
 let accountUid = StarlingApi.accountUid
 const moment = require("moment")
 const mongoose = require("mongoose")
-const db = require("./transaction")
-mongoose.connect("mongodb://localhost/booqquery")
 
-async function GetStarlingInfo(type) {
+async function GetStarlingUid() {
   return axios
     .get(`https://api.starlingbank.com/api/v2/accounts/`, config)
     .then(async function (response) {
-      let info = {
-        accountUid: response.data.accounts[0].accountUid,
-        AccountCreatedAt: response.data.accounts[0].createdAt,
-      }
+      let Uid = response.data.accounts[0].accountUid
 
-      if (type == "uid") return `Your account Uid ${info.accountUid}`
-      else return info.AccountCreatedAt
+      return Uid
     })
     .catch(function (error) {
       return error.response.data.error_description
     })
 }
-async function ReturnStarlingBalance() {
+async function GetStarlingCreatedAt() {
+  return axios
+    .get(`https://api.starlingbank.com/api/v2/accounts/`, config)
+    .then(async function (response) {
+      let CreatedAt = response.data.accounts[0].createdAt
+
+      return AccountCreatedAt
+    })
+    .catch(function (error) {
+      return error.response.data.error_description
+    })
+}
+async function GetStarlingBalance() {
   return axios
     .get(
       `https://api.starlingbank.com/api/v2/accounts/${accountUid}/balance`,
       config
     )
     .then(async function (response) {
-      return response.data.effectiveBalance.minorUnits
+      let amount = response.data.effectiveBalance.minorUnits / 100
+      return amount
     })
     .catch(function (error) {
       return error
@@ -97,4 +104,9 @@ async function Sync() {
       console.log("Did you format the query correctly?")
     })
 }
-module.exports = { GetStarlingInfo, ReturnStarlingBalance, Sync }
+module.exports = {
+  GetStarlingUid,
+  GetStarlingCreatedAt,
+  GetStarlingBalance,
+  Sync,
+}
